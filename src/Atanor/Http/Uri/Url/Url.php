@@ -1,6 +1,9 @@
 <?php
 declare(strict_types = 1);
-namespace Atanor\Http\Uri;
+namespace Atanor\Http\Uri\Url;
+
+use Atanor\Http\Uri\Uri;
+use Atanor\Http\Uri\Path;
 
 interface Url extends Uri
 {

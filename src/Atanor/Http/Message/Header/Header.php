@@ -1,6 +1,6 @@
 <?php
 declare(strict_types = 1);
-namespace Atanor\Http\Message;
+namespace Atanor\Http\Message\Header;
 
 interface Header
 {

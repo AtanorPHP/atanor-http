@@ -1,8 +1,12 @@
 <?php
 declare(strict_types = 1);
-namespace Atanor\Http\Uri;
+namespace Atanor\Http\Uri\Url;
 
-class UrlSegment implements StringObject,MutableStringObject
+use Atanor\Http\Uri\DefaultParameterList;
+use Atanor\Http\Uri\MutableStringObject;
+use Atanor\Http\Uri\StringObject;
+
+class UrlSegment implements StringObject, MutableStringObject
 {
     /**
      * @var string
@@ -26,9 +30,9 @@ class UrlSegment implements StringObject,MutableStringObject
         preg_match($pattern,$string,$matches);
         if (isset($matches['name'])) $this->name =  $matches['name'];
         $parameterString = $matches['parameters'];
-        $this->parameterList->fromString($parameterString);
+        if (is_string($parameterString))
+            $this->parameterList->fromString($parameterString);
         return $this;
-
     }
 
     /**

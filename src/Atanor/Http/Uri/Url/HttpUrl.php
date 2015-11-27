@@ -1,8 +1,11 @@
 <?php
 declare(strict_types = 1);
-namespace Atanor\Http\Uri;
+namespace Atanor\Http\Uri\Url;
 
-class HttpUrl implements Url,MutableStringObject
+use Atanor\Http\Uri\MutableStringObject;
+use Atanor\Http\Uri\Path;
+
+class HttpUrl implements Url, MutableStringObject, MutableUrl
 {
     /**
      * Url scheme
@@ -167,6 +170,51 @@ class HttpUrl implements Url,MutableStringObject
     public function __toString():string
     {
         // TODO: Implement __toString() method.
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setScheme(string $scheme):MutableUrl
+    {
+        $this->scheme = $scheme;
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setHost(string $host):MutableUrl
+    {
+        $this->host = $host;
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setQuery(string $query):MutableUrl
+    {
+        $this->query = $query;
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setFragment(string $fragment):MutableUrl
+    {
+        $this->fragment = $fragment;
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setPath(Path $path):MutableUrl
+    {
+        $this->path = $path;
+        return $this;
     }
 
 

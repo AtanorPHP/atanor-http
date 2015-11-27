@@ -1,8 +1,10 @@
 <?php
 declare(strict_types = 1);
-namespace Atanor\Http\Message;
+namespace Atanor\Http\Message\Header;
 
-class DefaultHeader implements Header,MutableHeader
+use Atanor\Http\Uri\MutableStringObject;
+
+class DefaultHeader implements Header, MutableHeader, MutableStringObject
 {
     /**
      * @var string
@@ -61,4 +63,23 @@ class DefaultHeader implements Header,MutableHeader
         $this->values[] = $value;
         return $this;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function fromString(string $string):MutableStringObject
+    {
+        $pattern = '@((?<name>[^:]+):)?(?<values>.*)@';
+        preg_match($pattern,$string,$matches);
+        if ( ! empty($matches['name'])) $this->name = $matches['name'];
+        $values = trim($matches['values'],',');
+        if (empty($values)) return $this;
+        $values = preg_split('@,@',$values);
+        foreach($values as $value) {
+            $this->addValue($value);
+        }
+        return $this;
+    }
+
+
 }
